@@ -35,17 +35,6 @@ const SearchButton = () => {
     };
   }, []);
 
-  const highlightText = (text, query) => {
-    const parts = text.split(new RegExp(`(${query})`, 'gi'));
-    return parts.map((part, index) =>
-      part.toLowerCase() === query.toLowerCase() ? (
-        `<span key=${index} class="text-primary font-bold">${part}</span>`
-      ) : (
-        part
-      )
-    ).join('');
-  };
-
   return (
     <>
         <button 
@@ -81,10 +70,8 @@ const SearchButton = () => {
                 <ul className={`${results.length > 2 ? 'max-h-96 overflow-y-scroll' : ''}`}>
                     {results.map((result) => (
                         <li key={result.id} className="py-4 space-y-2">
-                            <Link href={"/products/"+result.slug} className="font-bold text-lg">
-                                <span dangerouslySetInnerHTML={{ __html: highlightText(result.title, query) }} />
-                            </Link>
-                            <div className='prose' dangerouslySetInnerHTML={{ __html: highlightText(result.description.substring(0, 200), query) }} />
+                            <Link href={"/products/"+result.slug} className="font-bold text-lg">{result.title}</Link>
+                            <div className='prose' dangerouslySetInnerHTML={{ __html: result.description.substring(0, 200) }} />
                         </li>
                     ))}
                 </ul>

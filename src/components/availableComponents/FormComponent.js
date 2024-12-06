@@ -4,7 +4,7 @@ import React, { useContext } from 'react';
 import { FormContext, FormProvider } from '@/context/FormContext';
 import ComponentRenderer from '@/components/ComponentRenderer';
 
-const FormComponent = ({ data, remove, children }) => {
+const FormComponent = ({ data, children, remove }) => {
   if (remove) return null;
 
   const handleSubmit = async (event, formData, resetForm) => {
@@ -43,9 +43,7 @@ const FormComponent = ({ data, remove, children }) => {
 
   return (
     <FormProvider>
-      <FormContent data={data} handleSubmit={handleSubmit}>
-        {children}
-      </FormContent>
+      <FormContent data={data} children={children} handleSubmit={handleSubmit} />
       <dialog id="success_modal" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Success!</h3>
@@ -59,7 +57,7 @@ const FormComponent = ({ data, remove, children }) => {
   );
 };
 
-const FormContent = ({ data, handleSubmit, children }) => {
+const FormContent = ({ data, children, handleSubmit }) => {
   const { formData, resetForm } = useContext(FormContext);
 
   return (

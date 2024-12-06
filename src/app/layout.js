@@ -10,7 +10,7 @@ const poppins = Poppins({
 });
 
 const defaultSeoSettings = {
-  title: 'CockpitNest',
+  title: 'Default Title',
   description: 'Default Description',
   keywords: 'default, keywords',
   noindex: false,
@@ -31,10 +31,7 @@ export async function generateMetadata() {
   const other = Object.keys(otherMeta).length > 0 ? otherMeta : undefined;
 
   return {
-    title: {
-      template: seoSettings.title + ' | %s',
-      default: seoSettings.title
-    },
+    title: seoSettings.title,
     description: seoSettings.description,
     keywords: seoSettings.keywords,
     robots: `${seoSettings.noindex ? 'noindex' : 'index'},${seoSettings.nofollow ? 'nofollow' : 'follow'}`,

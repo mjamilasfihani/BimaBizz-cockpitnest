@@ -33,7 +33,7 @@ const ImageClient = ({ mainImage, additionalImages }) => {
                 width={currentImage.width}
                 height={currentImage.height}
             />
-            <div className="mt-4 flex gap-2 overflow-x-auto scroll-hidden">
+            <div className="mt-4 flex gap-2">
                 {additionalImages.map((img, index) => (
                     <Image
                         key={index}

@@ -31,7 +31,7 @@ export const fetchRoutes = async () => {
   };
 
   export const fetchSitemap = async () => {
-    const response = await fetch(`${process.env.NEXT_HOST}/api/pages/sitemap?deep=5`,{
+    const response = await fetch(`${process.env.NEXT_HOST}/api/pages/sitemap`,{
         cache : 'no-cache'
     }); // ganti dengan URL API kamu
     const data = await response.json();
