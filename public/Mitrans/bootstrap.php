@@ -91,6 +91,79 @@ $this->module('mitrans')->extend([
             error_log('Midtrans checkTransactionStatus error: ' . $e->getMessage());
             return ['error' => $e->getMessage()];
         }
+    },
+    'generateInvoice' => function ($order_id) {
+
+        $data = [];
+
+        foreach (json_decode(file_get_contents(__DIR__.'/transactions.json'), true) as $value) {
+            if ($value['order_id'] === $order_id) {
+                $data = $value;
+            }
+        }
+
+        if (empty($data)) {
+            error_log('data was not found...');
+        }
+
+        // $data = $this->param('data');
+
+        // if (!isset($data['order_id']) || !isset($data['invoice_number']) || !isset($data['customer_details'])) {
+        //     return ['status' => 'error', 'message' => 'Order ID, invoice number, and customer details are required'];
+        // }
+
+        // Save invoice to a JSON file
+        $invoiceData = [
+            'invoice_id' => uniqid(),
+            'order_id' => $data['order_id'] ?? 'null',
+            'invoice_number' => $data['invoice_number'] ?? 'null',
+            'due_date' => $data['due_date'] ?? 'null',
+            'invoice_date' => $data['invoice_date'] ?? 'null',
+            'customer_details' => $data['customer_details'] ?? [
+                'name' => '',
+                'email' => '',
+                'phone' => '',
+            ],
+            'payment_type' => $data['payment_type'] ?? 'null',
+            'reference' => $data['reference'] ?? 'null',
+            'item_details' => $data['item_details'] ?? [
+                [
+                    'description' => '',
+                    'price' => '',
+                ],
+            ],
+            'notes' => $data['notes'] ?? 'null',
+            'virtual_accounts' => $data['virtual_accounts'] ?? 'null',
+            'amount' => $data['amount'] ?? [
+                'vat' => '',
+                'discount' => '',
+                'shipping' => '',
+            ],
+            'status' => 'generated',
+            'created' => time()
+        ];
+
+        $invoices = [];
+        $filePath = __DIR__ . '/invoices.json';
+        if (file_exists($filePath)) {
+            $invoices = json_decode(file_get_contents($filePath), true);
+        }
+        $invoices[] = $invoiceData;
+        file_put_contents($filePath, json_encode($invoices));
+
+        // Generate PDF
+        $pdf = new \Mpdf\Mpdf();
+        // $html = $this->renderView('mitrans:views/invoice.php', ['invoice' => $invoiceData]);
+        $html = $this->app->render(__DIR__.'/views/invoice.php', ['invoice' => $invoiceData]);
+        $pdf->WriteHTML($html);
+        $pdfDir = __DIR__ . '/generateInvoicePDF/';
+        if (!is_dir($pdfDir)) {
+            mkdir($pdfDir, 0777, true);
+        }
+        $pdfFilePath = $pdfDir . $invoiceData['invoice_id'] . '.pdf';
+        $pdf->Output($pdfFilePath, 'F');
+
+        return ['status' => 'success', 'message' => 'Invoice generated', 'pdf_url' => $pdfFilePath];
     }
 
 ]);

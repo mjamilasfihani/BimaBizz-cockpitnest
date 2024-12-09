@@ -69,9 +69,9 @@ $this->on('restApi.config', function($restApi) {
 
             $data = $app->param('data');
 
-            if (!isset($data['transaction_details']['order_id']) || 
-                !isset($data['transaction_details']['gross_amount']) || 
-                !isset($data['customer_details']) || 
+            if (!isset($data['transaction_details']['order_id']) ||
+                !isset($data['transaction_details']['gross_amount']) ||
+                !isset($data['customer_details']) ||
                 !isset($data['shipping_address'])) {
                 return $app->stop(['error' => 'Order ID, amount, customer details, and shipping address are required'], 412);
             }
@@ -111,6 +111,14 @@ $this->on('restApi.config', function($restApi) {
         'GET' => function($params, $app) {
             $transactions = $this->module('mitrans')->getTransactions();
             return $transactions;
+        }
+    ]);
+
+    $restApi->addEndPoint('/mitrans/generateInvoice', [
+        'GET' => function ($params, $app) {
+            return $this
+                ->module('mitrans')
+                ->generateInvoice($this->param('order_id'));
         }
     ]);
 
