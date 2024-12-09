@@ -3,7 +3,7 @@ import React from 'react';
 const FooterComponent = ({ data }) => {
   return (
     <footer className="footer bg-base-200 text-base-content p-10">
-      <div className="w-full max-w-7xl mx-auto grid-flow-col">
+      <div className="w-full max-w-7xl mx-auto grid md:flex justify-between">
         <aside>
           <svg
             width="50"

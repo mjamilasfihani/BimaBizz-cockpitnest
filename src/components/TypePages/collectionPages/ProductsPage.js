@@ -3,15 +3,13 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import ImageClient from "./ImageClient";
 import Image from "next/image";
+import formatPrice from "@/lib/formatPrice";
+import PaymentButton from "@/components/PaymentButton";
 
 const ProductsPage = ({ collection }) => {
   if (!collection.data || (!collection.data.items && !collection.data.item)) {
     notFound(); // Redirect to 404 page
   }
-
-  const formatPrice = (price) => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  };
 
   return (
     <div>
@@ -114,40 +112,7 @@ const ProductsPage = ({ collection }) => {
                     </div>
                   )}
                   <div className="mt-6 flex items-center space-x-4">
-                    <button className="btn btn-primary flex items-center space-x-2">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
-                        />
-                      </svg>
-                      <span>Add to favorites</span>
-                    </button>
-                    <button className="btn btn-primary flex items-center space-x-2">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"
-                        />
-                      </svg>
-                      <span>Add to cart</span>
-                    </button>
+                    <PaymentButton product={collection.data.item} />
                   </div>
                   <div className="divider" />
                   <div
