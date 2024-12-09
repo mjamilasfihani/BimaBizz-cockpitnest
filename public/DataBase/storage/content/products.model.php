@@ -6,6 +6,20 @@
   'type' => 'collection',
   'fields' => [
     0 => [
+      'name' => 'seo',
+      'type' => 'seo',
+      'label' => 'SEO',
+      'info' => '',
+      'group' => '',
+      'i18n' => false,
+      'required' => false,
+      'multiple' => false,
+      'meta' => [
+      ],
+      'opts' => [
+      ],
+    ],
+    1 => [
       'name' => 'img',
       'type' => 'asset',
       'label' => 'img',
@@ -19,7 +33,7 @@
       'opts' => [
       ],
     ],
-    1 => [
+    2 => [
       'name' => 'title',
       'type' => 'text',
       'label' => 'Title',
@@ -40,7 +54,7 @@
         'list' => NULL,
       ],
     ],
-    2 => [
+    3 => [
       'name' => 'slug',
       'type' => 'text',
       'label' => 'Slug',
@@ -62,7 +76,7 @@
         'slugField' => 'title',
       ],
     ],
-    3 => [
+    4 => [
       'name' => 'price',
       'type' => 'number',
       'label' => 'Price',
@@ -76,7 +90,59 @@
       'opts' => [
       ],
     ],
-    4 => [
+    5 => [
+      'name' => 'varian',
+      'type' => 'set',
+      'label' => 'Varian',
+      'info' => '',
+      'group' => '',
+      'i18n' => false,
+      'required' => false,
+      'multiple' => true,
+      'meta' => [
+      ],
+      'opts' => [
+        'fields' => [
+          0 => [
+            'name' => 'nameVarian',
+            'type' => 'text',
+            'label' => '',
+            'info' => '',
+            'group' => '',
+            'i18n' => false,
+            'required' => false,
+            'multiple' => false,
+            'meta' => [
+            ],
+            'opts' => [
+              'multiline' => false,
+              'showCount' => true,
+              'readonly' => false,
+              'placeholder' => NULL,
+              'minlength' => NULL,
+              'maxlength' => NULL,
+              'list' => NULL,
+            ],
+          ],
+          1 => [
+            'name' => 'jenisVarian',
+            'type' => 'text',
+            'label' => '',
+            'info' => '',
+            'group' => '',
+            'i18n' => false,
+            'required' => false,
+            'multiple' => true,
+            'meta' => [
+            ],
+            'opts' => [
+            ],
+          ],
+        ],
+        'display' => '${data.nameVarian}',
+      ],
+    ],
+    6 => [
       'name' => 'description',
       'type' => 'wysiwyg',
       'label' => 'Description',
@@ -96,7 +162,7 @@
   'group' => '',
   'meta' => NULL,
   '_created' => 1733241685,
-  '_modified' => 1733296670,
+  '_modified' => 1733456522,
   'color' => NULL,
   'revisions' => false,
 ];

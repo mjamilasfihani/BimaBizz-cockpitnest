@@ -7,7 +7,6 @@
   'fields' => [
     0 => 'title',
     1 => 'description',
-    2 => 'slug',
   ],
   'group' => NULL,
   'meta' => [
@@ -15,5 +14,5 @@
     'populate' => 1,
     'locale' => false,
   ],
-  '_created' => 1733291171,
+  '_created' => 1733471782,
 ];
